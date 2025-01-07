@@ -23,9 +23,9 @@ struct ContentView: View {
             MapReader { proxy in
                 Map(initialPosition: startPosition) {
                     ForEach(viewModel.locations) { location in
-                        Annotation("", coordinate: location.coordinate) { // Пустая строка, чтобы убрать дублирование
+                        Annotation("", coordinate: location.coordinate) {
                             VStack {
-                                Text(location.name) // Название города
+                                Text(location.name) 
                                     .font(.caption)
                                     .foregroundColor(.blue)
                                     .padding(2)

@@ -16,7 +16,7 @@ extension ContentView {
 
         private(set) var locations: [Location]
         var selectedPlace: Location?
-        var isUnlocked = true
+        var isUnlocked = false
 
         init() {
             do {
