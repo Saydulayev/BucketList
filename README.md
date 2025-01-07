@@ -1,3 +1,10 @@
+#### Preview
+
+<p align="center">
+  <img src="https://github.com/Saydulayev/BucketList/blob/main/BucketList/Preview%20Content/Screen./1.png" width="300">
+  <img src="https://github.com/Saydulayev/BucketList/blob/main/BucketList/Preview%20Content/Screen./2.png" width="300">
+</p>
+
 # BucketList
 
 ## Overview
