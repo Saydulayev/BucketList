@@ -33,7 +33,7 @@ struct ContentView: View {
                                         .padding(2)
                                         .background(.white)
                                         .clipShape(Capsule())
-
+                                    
                                     Image(systemName: "mappin.circle")
                                         .resizable()
                                         .foregroundStyle(.red)
@@ -63,14 +63,14 @@ struct ContentView: View {
                         }
                     }
                 }
-
+                
                 // Кнопка для переключения режимов
                 VStack {
                     HStack {
                         Button(action: {
                             viewModel.clearAllLocations()
                         }, label: {
-                                Image(systemName: "trash")
+                            Image(systemName: "trash")
                                 .padding(10)
                                 .background(Color.red.opacity(0.8))
                                 .foregroundStyle(.white)
@@ -95,13 +95,42 @@ struct ContentView: View {
                 
             }
         } else {
-            Button("Unlock Places", action: viewModel.authenticate)
+            VStack {
+                Spacer()
+                Button {
+                    viewModel.authenticate()
+                } label: {
+                    Image(systemName: "lock.shield")
+                        .padding()
+                        .font(.system(size: 42))
+                        .background(.blue)
+                        .foregroundStyle(.white)
+                        .clipShape(.capsule)
+                        .alert("Authentication Error", isPresented: $viewModel.showingAlert) {
+                            Button("OK", role: .cancel) { }
+                        } message: {
+                            Text(viewModel.alertMessage)
+                        }
+                }
                 .padding()
-                .background(.blue)
-                .foregroundStyle(.white)
-                .clipShape(.capsule)
+            }
+            /*
+             else {
+                Text("Authenticating...")
+                    .font(.headline)
+                    .foregroundColor(.gray)
+            }
+            }
+            .onAppear {
+            viewModel.authenticate()
+            }
+            .alert("Authentication Error", isPresented: $viewModel.showingAlert) {
+            Button("OK", role: .cancel) { }
+            } message: {
+            Text(viewModel.alertMessage)
+            }
+             */
         }
-
     }
 }
 

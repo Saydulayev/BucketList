@@ -17,7 +17,9 @@ extension ContentView {
 
         private(set) var locations: [Location]
         var selectedPlace: Location?
-        var isUnlocked = true
+        var isUnlocked = false
+        var showingAlert = false
+        var alertMessage = ""
         var mapType: MKMapType = .standard
 
         init() {
@@ -105,24 +107,29 @@ extension ContentView {
         }
 
         func authenticate() {
-            let context = LAContext()
-            var error: NSError?
+                let context = LAContext()
+                var error: NSError?
 
-            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-                let reason = "Please authenticate yourself to unlock your places."
+                if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+                    let reason = "Please authenticate yourself to unlock your places."
 
-                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
-
-                    if success {
-                        self.isUnlocked = true
-                    } else {
-                        // error
+                    context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+                        DispatchQueue.main.async {
+                            if success {
+                                self.isUnlocked = true
+                            } else {
+                                self.alertMessage = authenticationError?.localizedDescription ?? "Authentication failed."
+                                self.showingAlert = true
+                            }
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.alertMessage = error?.localizedDescription ?? "Biometric authentication is not available."
+                        self.showingAlert = true
                     }
                 }
-            } else {
-                // no biometrics
             }
-        }
     }
 }
 
