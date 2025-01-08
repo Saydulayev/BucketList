@@ -8,6 +8,7 @@
 import CoreLocation
 import Foundation
 import LocalAuthentication
+import MapKit
 
 extension ContentView {
     @Observable
@@ -17,6 +18,7 @@ extension ContentView {
         private(set) var locations: [Location]
         var selectedPlace: Location?
         var isUnlocked = true
+        var mapType: MKMapType = .standard
 
         init() {
             do {
